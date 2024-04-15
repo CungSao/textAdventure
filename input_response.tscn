@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://cy17rq28lith3"]
+
+[ext_resource type="Script" path="res://input_response.gd" id="1_i228n"]
+[ext_resource type="PackedScene" uid="uid://dobcuadnbwsyi" path="res://response.tscn" id="2_u14mm"]
+
+[node name="InputResponse" type="VBoxContainer"]
+offset_right = 336.0
+offset_bottom = 83.0
+theme_override_constants/separation = 0
+script = ExtResource("1_i228n")
+
+[node name="InputHistory" type="Label" parent="."]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.631373, 0.631373, 0.631373, 1)
+theme_override_font_sizes/font_size = 24
+text = " > This is what the user typed"
+
+[node name="Response" parent="." instance=ExtResource("2_u14mm")]
+layout_mode = 2
+text = "This is what the game will give back  ower"

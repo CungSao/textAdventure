@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dobcuadnbwsyi"]
+
+[node name="Response" type="Label"]
+custom_minimum_size = Vector2(336, 0)
+text = "This is what the game will give back sasasa"
+autowrap_mode = 3
