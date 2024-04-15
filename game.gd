@@ -16,8 +16,11 @@ const RESPONSE = preload("res://response.tscn")
 
 func _ready() -> void:
 	scrollbar.changed.connect(handle_scrollbar_changed)
-	command_processor.innitialize(room_manager.get_child(0))
-
+	command_processor.connect("response_generated", handle_response_generated)
+	
+	handle_response_generated("Welcome to the retro text adventure! You can type 'help' to see your available commands.")
+	command_processor.initialize(room_manager.get_child(0))
+	
 
 func handle_scrollbar_changed():
 	scroll.scroll_vertical = scrollbar.max_value

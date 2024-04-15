@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://d3wba6syqkbrp"]
+[gd_scene load_steps=13 format=3 uid="uid://d3wba6syqkbrp"]
 
 [ext_resource type="Script" path="res://Input.gd" id="1_2uw3k"]
 [ext_resource type="FontFile" uid="uid://d078jfhcy6kqy" path="res://fonts/IBMPlexMono-Regular.ttf" id="1_scu14"]
 [ext_resource type="Script" path="res://game.gd" id="2_vas34"]
 [ext_resource type="Script" path="res://CommandProcessor.gd" id="3_ulhwv"]
+[ext_resource type="Script" path="res://RoomManager.gd" id="4_l4nh5"]
 [ext_resource type="PackedScene" uid="uid://c0bvgbk12s7cn" path="res://room.tscn" id="4_m1qwo"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hdhih"]
@@ -43,14 +44,23 @@ max_lines_remembered = 20
 script = ExtResource("3_ulhwv")
 
 [node name="RoomManager" type="Node" parent="."]
+script = ExtResource("4_l4nh5")
 
-[node name="Room" parent="RoomManager" instance=ExtResource("4_m1qwo")]
+[node name="HouseRoom" parent="RoomManager" instance=ExtResource("4_m1qwo")]
 offset_left = 1.0
 offset_top = -189.0
 offset_right = 290.0
 offset_bottom = -89.0
-room_name = "House"
+room_name = "A house"
 room_description = "A random house"
+
+[node name="OutsideRoom" parent="RoomManager" instance=ExtResource("4_m1qwo")]
+offset_left = 1.0
+offset_top = -189.0
+offset_right = 290.0
+offset_bottom = -89.0
+room_name = "outside"
+room_description = "outside in the village."
 
 [node name="Background" type="PanelContainer" parent="."]
 layout_mode = 1
