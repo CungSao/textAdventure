@@ -1,11 +1,12 @@
 extends Control
 
+signal cam
 @export var path_history: NodePath
 @export var path_scroll: NodePath
 @export var max_lines_remembered = 30
 
-const INPUT_RESPONSE = preload("res://input_response.tscn")
-const RESPONSE = preload("res://response.tscn")
+const INPUT_RESPONSE = preload("res://input/input_response.tscn")
+const RESPONSE = preload("res://input/response.tscn")
 
 @onready var command_processor: Node = $CommandProcessor
 @onready var history: VBoxContainer = get_node(path_history)
@@ -16,14 +17,14 @@ const RESPONSE = preload("res://response.tscn")
 
 func _ready() -> void:
 	scrollbar.changed.connect(handle_scrollbar_changed)
-	command_processor.connect("response_generated", handle_response_generated)
 	
-	handle_response_generated("Welcome to the retro text adventure! You can type 'help' to see your available commands.")
-	command_processor.initialize(room_manager.get_child(0))
-	
+	create_response("Welcome to the retro text adventure! You can type 'help' to see your available commands.")
+	var starting_room_response = command_processor.initialize(room_manager.get_child(0))
+	create_response(starting_room_response)
+
 
 func handle_scrollbar_changed():
-	scroll.scroll_vertical = scrollbar.max_value
+	scroll.scroll_vertical = int(scrollbar.max_value)
 
 
 func _on_input_text_submitted(new_text: String) -> void:
@@ -36,7 +37,7 @@ func _on_input_text_submitted(new_text: String) -> void:
 	add_respone_to_game(input_response)
 
 
-func handle_response_generated(response_text):
+func create_response(response_text):
 	var response = RESPONSE.instantiate()
 	response.text = response_text
 	#response.text = "You find youself in a house, with no memory of how you go there. You need to find your way out. You can type 'help' to see your available commands."

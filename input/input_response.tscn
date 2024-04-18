@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cy17rq28lith3"]
 
-[ext_resource type="Script" path="res://input_response.gd" id="1_i228n"]
-[ext_resource type="PackedScene" uid="uid://dobcuadnbwsyi" path="res://response.tscn" id="2_u14mm"]
+[ext_resource type="Script" path="res://input/input_response.gd" id="1_i228n"]
+[ext_resource type="PackedScene" uid="uid://dobcuadnbwsyi" path="res://input/response.tscn" id="2_u14mm"]
 
 [node name="InputResponse" type="VBoxContainer"]
 offset_right = 336.0
