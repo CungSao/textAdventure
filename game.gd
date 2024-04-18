@@ -13,13 +13,15 @@ const RESPONSE = preload("res://input/response.tscn")
 @onready var scroll: ScrollContainer = get_node(path_scroll)
 @onready var scrollbar: VScrollBar = scroll.get_v_scroll_bar()
 @onready var room_manager: Node = $RoomManager
+@onready var player = $Player
 
 
 func _ready() -> void:
 	scrollbar.changed.connect(handle_scrollbar_changed)
 	
 	create_response("Welcome to the retro text adventure! You can type 'help' to see your available commands.")
-	var starting_room_response = command_processor.initialize(room_manager.get_child(0))
+	
+	var starting_room_response = command_processor.initialize(room_manager.get_child(0), player)
 	create_response(starting_room_response)
 
 

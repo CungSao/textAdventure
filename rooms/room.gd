@@ -21,6 +21,10 @@ func add_item(item:Item):
 	items.append(item)
 
 
+func remove_item(item:Item):
+	items.erase(item)
+
+
 func get_full_description() -> String:
 	var full_description = "".join(PackedStringArray([
 		"\n%s \n%s \n%s" % [
