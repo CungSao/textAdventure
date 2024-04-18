@@ -3,9 +3,9 @@
 [ext_resource type="Script" path="res://rooms/room.gd" id="1_6e8ul"]
 
 [node name="Room" type="PanelContainer"]
-custom_minimum_size = Vector2(250, 100)
-offset_right = 289.0
-offset_bottom = 100.0
+custom_minimum_size = Vector2(250, 150)
+offset_right = 250.0
+offset_bottom = 150.0
 script = ExtResource("1_6e8ul")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -28,3 +28,4 @@ horizontal_alignment = 1
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "This is the description of the room."
+autowrap_mode = 3
