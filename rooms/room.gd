@@ -52,14 +52,24 @@ func get_item_description() -> String:
 	
 
 func get_exit_description() -> String:
-	return "Exits: " + "".join(exits.keys())
+	return "Exits: " + " ".join(exits.keys())
 
 
-func connect_exit(direction:String, next_room:Room):
+func connect_exit_unlocked(direction:String, next_room:Room):
+	_connect_exit(direction, next_room, false)
+	
+
+func connect_exit_locked(direction:String, next_room:Room):
+	_connect_exit(direction, next_room, true)
+
+
+func _connect_exit(direction:String, next_room:Room, is_locked:bool):
 	var exit = Exit.new()
 	exit.room_1 = self
 	exit.room_2 = next_room
+	exit.room_2_is_locked = is_locked
 	exits[direction] = exit
+
 
 	match direction:
 		'west':
@@ -78,3 +88,4 @@ func connect_exit(direction:String, next_room:Room):
 			next_room.exits["inside"] = exit
 		_:
 			printerr("Tried to connect invalid direction: ", direction)
+

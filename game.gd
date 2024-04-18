@@ -1,6 +1,6 @@
 extends Control
 
-signal cam
+@export var input_path:NodePath
 @export var path_history: NodePath
 @export var path_scroll: NodePath
 @export var max_lines_remembered = 30
@@ -9,18 +9,29 @@ const INPUT_RESPONSE = preload("res://input/input_response.tscn")
 const RESPONSE = preload("res://input/response.tscn")
 
 @onready var command_processor: Node = $CommandProcessor
+@onready var room_manager: Node = $RoomManager
+@onready var __input_edit:LineEdit = get_node(input_path)
 @onready var history: VBoxContainer = get_node(path_history)
 @onready var scroll: ScrollContainer = get_node(path_scroll)
 @onready var scrollbar: VScrollBar = scroll.get_v_scroll_bar()
-@onready var room_manager: Node = $RoomManager
-@onready var player = $Player
+
+
+func _on_text_changed(new_text):
+	if Input.is_action_pressed("ui_text_backspace"): return
+	match new_text:
+		"inv":
+			new_text = new_text.replace("inv", "inventory")
+			__input_edit.text = new_text
+			__input_edit.caret_column = new_text.length()
 
 
 func _ready() -> void:
+	__input_edit.connect("text_changed", _on_text_changed)
 	scrollbar.changed.connect(handle_scrollbar_changed)
 	
 	create_response("Welcome to the retro text adventure! You can type 'help' to see your available commands.")
 	
+	var player = Player.new()
 	var starting_room_response = command_processor.initialize(room_manager.get_child(0), player)
 	create_response(starting_room_response)
 

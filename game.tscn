@@ -1,9 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://d3wba6syqkbrp"]
+[gd_scene load_steps=13 format=3 uid="uid://d3wba6syqkbrp"]
 
 [ext_resource type="Script" path="res://input/Input.gd" id="1_2uw3k"]
 [ext_resource type="FontFile" uid="uid://d078jfhcy6kqy" path="res://fonts/IBMPlexMono-Regular.ttf" id="1_scu14"]
 [ext_resource type="Script" path="res://game.gd" id="2_vas34"]
-[ext_resource type="Script" path="res://Player.gd" id="3_6mbef"]
 [ext_resource type="Script" path="res://CommandProcessor.gd" id="3_ulhwv"]
 [ext_resource type="Script" path="res://RoomManager.gd" id="4_l4nh5"]
 [ext_resource type="PackedScene" uid="uid://c0bvgbk12s7cn" path="res://rooms/room.tscn" id="4_m1qwo"]
@@ -37,12 +36,10 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_f8l51")
 script = ExtResource("2_vas34")
+input_path = NodePath("Background/MarginContainer/BoxContainer/InputArea/HBoxContainer/Input")
 path_history = NodePath("Background/MarginContainer/BoxContainer/GameInfo/ScrollContainer/History")
 path_scroll = NodePath("Background/MarginContainer/BoxContainer/GameInfo/ScrollContainer")
 max_lines_remembered = 20
-
-[node name="Player" type="Node" parent="."]
-script = ExtResource("3_6mbef")
 
 [node name="CommandProcessor" type="Node" parent="."]
 script = ExtResource("3_ulhwv")
@@ -65,6 +62,14 @@ offset_right = 621.0
 offset_bottom = -89.0
 room_name = "outside"
 room_description = "outside in the village."
+
+[node name="ShedRoom" parent="RoomManager" instance=ExtResource("4_m1qwo")]
+offset_left = 333.0
+offset_top = -318.0
+offset_right = 622.0
+offset_bottom = -218.0
+room_name = "a shed"
+room_description = "a dusty old shed used for storage."
 
 [node name="Background" type="PanelContainer" parent="."]
 layout_mode = 1

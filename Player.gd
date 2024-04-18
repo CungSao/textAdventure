@@ -1,6 +1,6 @@
-extends Node
+class_name Player extends Node
 
-var inventory:Array
+var inventory:Array[Item]
 
 
 func take_item(item:Item):
@@ -16,8 +16,8 @@ func get_inventory_list() -> String:
 		return "You don't currently have anything."
 	
 	var item_string = ""
-	for i in inventory:
-		item_string += i.item_name + " "
+	for item in inventory:
+		item_string += item.item_name + " "
 		
 	return "Invetory: " + item_string
 	
