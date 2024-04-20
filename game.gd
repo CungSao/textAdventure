@@ -32,6 +32,7 @@ func _ready() -> void:
 	create_response("Welcome to the retro text adventure! You can type 'help' to see your available commands.")
 	
 	var player = Player.new()
+	player.take_item(room_manager.load_item("GuardSword"))
 	var starting_room_response = command_processor.initialize(room_manager.get_child(0), player)
 	create_response(starting_room_response)
 

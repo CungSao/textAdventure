@@ -1,11 +1,11 @@
 class_name Item extends Resource
 
+enum ItemTypes {
+	KEY,
+	QUEST_ITEM
+}
+
 @export var item_name = "Item Name"
-@export var item_type:Types.ItemTypes = Types.ItemTypes.KEY
+@export var item_type:ItemTypes = ItemTypes.KEY
 
 var use_value = null
-
-
-#func _init(_item_name:String, _item_type):
-	#item_name = _item_name
-	#item_type = _item_type

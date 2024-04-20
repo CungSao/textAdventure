@@ -34,6 +34,8 @@ func process_command(input:String) -> String:
 			return use(second_word)
 		"talk":
 			return talk(second_word)
+		"give":
+			return give(second_word)
 		"help":
 			return help()
 
@@ -90,7 +92,7 @@ func use(second_word:String) -> String:
 	for item in player.inventory:
 		if second_word.to_lower() == item.item_name.to_lower():
 			match item.item_type:
-				Types.ItemTypes.KEY:
+				Item.ItemTypes.KEY:
 					for exit in current_room.exits.values():
 						if exit == item.use_value:
 							exit.is_locked = false
@@ -108,14 +110,43 @@ func talk(second_word:String) -> String:
 		return "Talk to who?"
 	for npc in current_room.npcs:
 		if npc.npc_name.to_lower().similarity(second_word) > 0.4:
-		#if npc.npc_name.to_lower() == second_word:
-			return npc.npc_name + ': \"' + npc.initial_dialog + '\"'
+			var dialog = npc.post_quest_dialog if npc.has_received_quest_item else npc.initial_dialog
+			return '%s: "%s"' % [npc.npc_name, dialog]
 	
 	return "That person does not exist in this room."
+
+
+func give(second_word:String) -> String:
+	if second_word == "":
+		return "Give what?"
 	
+	var has_item = false
+	for item in player.inventory:
+		if item.item_name.to_lower().similarity(second_word) > 0.4:
+			has_item = true
+			
+	if !has_item:
+		return "You don't have that item."
+	
+	for npc in current_room.npcs:
+		if npc.quest_item == null: continue
+		if npc.quest_item.item_name.to_lower().similarity(second_word) > 0.4:
+			npc.has_received_quest_item = true
+			if npc.quest_reward != null:
+				var reward = npc.quest_reward
+				if "is_locked" in reward:
+					reward.is_locked = false
+				else:
+					printerr("Warning - tried to have a quest reward type that is not implemented.")
+					
+			player.drop_item(npc.quest_item)
+			return "You give the %s to the %s." % [second_word, npc.npc_name]
+
+	return "No body here wants that item."
+
 
 func help() -> String:
-	return "You can use these commands: go [location], take/drop [item], inventory, help"
+	return "You can use these commands: go [location], take/drop [item], talk [npc] - give [item], inventory, help"
 
 
 ###

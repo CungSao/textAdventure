@@ -15,14 +15,18 @@ func _ready() -> void:
 	outside_room.connect_exit_unlocked("north", gate)
 	
 	var exit = outside_room.connect_exit_locked("east", shed_room)
-	var key = load_item("Key")
+	var key = load_item("InnKitchenKey")
 	outside_room.add_item(key)
 	key.use_value = exit
 
+	var sword = load_item("GuardSword")
+	shed_room.add_item(sword)
+	
+	exit = gate.connect_exit_locked("forest", field, "gate")	
 	var guard = load_npc("Guard")
 	gate.add_npc(guard)
-	gate.connect_exit_unlocked("forest", field, "gate")	
-
+	guard.quest_reward = exit
+	
 
 func load_item(item_name:String):
 	return load("res://items/%s.tres" % item_name)
