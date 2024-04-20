@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://CommandProcessor.gd" id="3_ulhwv"]
 [ext_resource type="Script" path="res://RoomManager.gd" id="4_l4nh5"]
 [ext_resource type="PackedScene" uid="uid://c0bvgbk12s7cn" path="res://rooms/room.tscn" id="4_m1qwo"]
+[ext_resource type="PackedScene" uid="uid://cyqy2dka07t03" path="res://game_info.tscn" id="6_lhram"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hdhih"]
 
@@ -21,9 +22,6 @@ LineEdit/styles/focus = SubResource("StyleBoxEmpty_hdhih")
 LineEdit/styles/normal = SubResource("StyleBoxEmpty_mxxck")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_up5l3")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5tssn"]
-bg_color = Color(0.215686, 0.215686, 0.215686, 1)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ghkb4"]
 bg_color = Color(0.286275, 0.286275, 0.286275, 1)
 
@@ -37,9 +35,6 @@ grow_vertical = 2
 theme = SubResource("Theme_f8l51")
 script = ExtResource("2_vas34")
 input_path = NodePath("Background/MarginContainer/BoxContainer/InputArea/HBoxContainer/Input")
-path_history = NodePath("Background/MarginContainer/BoxContainer/GameInfo/ScrollContainer/History")
-path_scroll = NodePath("Background/MarginContainer/BoxContainer/GameInfo/ScrollContainer")
-max_lines_remembered = 20
 
 [node name="CommandProcessor" type="Node" parent="."]
 script = ExtResource("3_ulhwv")
@@ -106,20 +101,8 @@ theme_override_constants/margin_bottom = 20
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="GameInfo" type="PanelContainer" parent="Background/MarginContainer/BoxContainer"]
+[node name="GameInfo" parent="Background/MarginContainer/BoxContainer" instance=ExtResource("6_lhram")]
 layout_mode = 2
-size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_5tssn")
-
-[node name="ScrollContainer" type="ScrollContainer" parent="Background/MarginContainer/BoxContainer/GameInfo"]
-layout_mode = 2
-horizontal_scroll_mode = 0
-
-[node name="History" type="VBoxContainer" parent="Background/MarginContainer/BoxContainer/GameInfo/ScrollContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/separation = 20
 
 [node name="InputArea" type="PanelContainer" parent="Background/MarginContainer/BoxContainer"]
 custom_minimum_size = Vector2(0, 60)
