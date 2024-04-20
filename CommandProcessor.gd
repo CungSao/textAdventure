@@ -32,6 +32,8 @@ func process_command(input:String) -> String:
 			return inventory()
 		"use":
 			return use(second_word)
+		"talk":
+			return talk(second_word)
 		"help":
 			return help()
 
@@ -58,7 +60,7 @@ func take(second_word:String) -> String:
 		return "Take what?"
 	
 	for item in current_room.items:
-		if second_word.to_lower() == item.item_name.to_lower():
+		if item.item_name.to_lower().similarity(second_word) > 0.4:
 			current_room.remove_item(item)
 			player.take_item(item)
 			return "You take the " + item.item_name
@@ -100,6 +102,17 @@ func use(second_word:String) -> String:
 
 	return "You don't have that item."
 
+
+func talk(second_word:String) -> String:
+	if second_word == "":
+		return "Talk to who?"
+	for npc in current_room.npcs:
+		if npc.npc_name.to_lower().similarity(second_word) > 0.4:
+		#if npc.npc_name.to_lower() == second_word:
+			return npc.npc_name + ': \"' + npc.initial_dialog + '\"'
+	
+	return "That person does not exist in this room."
+	
 
 func help() -> String:
 	return "You can use these commands: go [location], take/drop [item], inventory, help"

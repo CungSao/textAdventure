@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource("1_w7hd5")
-item_name = "A Key"
+item_name = "Key"
 item_type = 0

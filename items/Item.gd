@@ -6,6 +6,6 @@ class_name Item extends Resource
 var use_value = null
 
 
-func _init(_item_name:String, _item_type):
-	item_name = _item_name
-	item_type = _item_type
+#func _init(_item_name:String, _item_type):
+	#item_name = _item_name
+	#item_type = _item_type

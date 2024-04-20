@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="NPC" load_steps=2 format=3 uid="uid://b0naifgg47eb3"]
+
+[ext_resource type="Script" path="res://npcs/NPC.gd" id="1_21865"]
+
+[resource]
+script = ExtResource("1_21865")
+npc_name = "innkeeper"
+initial_dialog = "Hi traveler! If you want to win the game, head north to the village gate and talk to the guard!"
+post_quest_dialog = ""

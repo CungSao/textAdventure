@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="NPC" load_steps=2 format=3 uid="uid://d3yhi3285ewru"]
+
+[ext_resource type="Script" path="res://npcs/NPC.gd" id="1_4sphx"]
+
+[resource]
+script = ExtResource("1_4sphx")
+npc_name = "guard"
+initial_dialog = "Err... you cannot pass! I seem to have lost my sword in the field to the west of the village, and until I recover it, nobody goes though. Don't ask how that makes sense, just go find it!"
+post_quest_dialog = "You found it! I've never been so happy in my entire life. Please go through into the forest. I owne you a great debt!"
