@@ -46,7 +46,7 @@ func get_full_description() -> String:
 
 
 func get_room_description() -> String:
-	return "You are now in: %s. It is %s" % [room_name, room_description]
+	return "You are now in: %s. It is %s" % [Colors.wrap_location_text(room_name), room_description]
 
 
 func get_npc_description() -> String:
@@ -56,7 +56,7 @@ func get_npc_description() -> String:
 	var npc_string = ""
 	for npc in npcs:
 		npc_string += npc.npc_name + " "
-	return "NPC: " + npc_string
+	return "NPC: " + Colors.wrap_npc_text(npc_string)
 
 
 func get_item_description() -> String:
@@ -66,11 +66,11 @@ func get_item_description() -> String:
 	var item_string = ""
 	for item in items:
 		item_string += item.item_name + " "
-	return "Items: " + item_string
+	return "Items: " + Colors.wrap_item_text(item_string)
 	
 
 func get_exit_description() -> String:
-	return "Exits: " + " ".join(exits.keys())
+	return "Exits: " + Colors.wrap_location_text(" ".join(exits.keys()))
 
 
 func connect_exit_unlocked(direction:String, room:Room, room_2_override_name = "null"):

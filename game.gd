@@ -20,7 +20,8 @@ func _on_text_changed(new_text):
 func _ready() -> void:
 	__input_edit.connect("text_changed", _on_text_changed)
 	
-	game_info.create_response("Welcome to the retro text adventure! You can type 'help' to see your available commands.")
+	var string = "Welcome to the retro text adventure! You can type 'help' to see your available commands."
+	game_info.create_response(Colors.wrap_system_text(string))
 	
 	var player = Player.new()
 	player.take_item(room_manager.load_item("GuardSword"))

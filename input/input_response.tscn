@@ -1,7 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://cy17rq28lith3"]
+[gd_scene load_steps=4 format=3 uid="uid://cy17rq28lith3"]
 
 [ext_resource type="Script" path="res://input/input_response.gd" id="1_i228n"]
 [ext_resource type="PackedScene" uid="uid://dobcuadnbwsyi" path="res://input/response.tscn" id="2_u14mm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7wguv"]
+content_margin_right = 0.0
+bg_color = Color(1, 1, 1, 0.0627451)
+expand_margin_left = 5.0
 
 [node name="InputResponse" type="MarginContainer"]
 anchors_preset = 15
@@ -11,6 +16,10 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 5
 script = ExtResource("1_i228n")
+
+[node name="Zebra" type="Panel" parent="."]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7wguv")
 
 [node name="Rows" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -24,4 +33,3 @@ text = " > This is what the user typed"
 
 [node name="Response" parent="Rows" instance=ExtResource("2_u14mm")]
 layout_mode = 2
-text = "This is what the game will give back  ower"

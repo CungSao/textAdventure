@@ -3,6 +3,7 @@ extends PanelContainer
 const INPUT_RESPONSE = preload("res://input/input_response.tscn")
 
 @export var max_lines_remembered = 30
+var should_zebra = false
 
 @export var path_history: NodePath
 @export var path_scroll: NodePath
@@ -36,6 +37,9 @@ func _handle_scrollbar_changed():
 
 func _add_respone_to_game(response:Control):
 	history.add_child(response)
+	if !should_zebra:
+		response.zebra.hide()
+	should_zebra = !should_zebra
 	_delete_history_beyond_limit()
 
 

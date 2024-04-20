@@ -22,7 +22,7 @@ func _ready() -> void:
 	var sword = load_item("GuardSword")
 	shed_room.add_item(sword)
 	
-	exit = gate.connect_exit_locked("forest", field, "gate")	
+	exit = gate.connect_exit_locked("forest", field, "gate")
 	var guard = load_npc("Guard")
 	gate.add_npc(guard)
 	guard.quest_reward = exit

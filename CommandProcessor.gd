@@ -39,20 +39,22 @@ func process_command(input:String) -> String:
 		"help":
 			return help()
 
-	return "Unrecognized command - please try again."
+	return Colors.wrap_system_text("Unrecognized command - please try again.")
 
 
 func go(second_word:String) -> String:
 	if second_word == "":
-		return "Go where?"
+		return Colors.wrap_system_text("Go where?")
 	
 	if current_room.exits.keys().has(second_word):
 		var exit:Exit = current_room.exits[second_word]
 		if exit.is_locked:
-			return "The way %s is currently locked!" % second_word
-			
+			return "The way " +  Colors.wrap_location_text(second_word) + " is currently " + Colors.wrap_system_text("locked!")
+
 		var change_response = change_room(exit.get_other_room(current_room))
-		return "You go %s %s" % [second_word, change_response]
+		return "\n".join(PackedStringArray(["You go "
+		+ Colors.wrap_location_text(second_word)
+		+ ".", change_response]))
 	else:
 		return "This room has no exit in that direction!"
 
@@ -65,8 +67,9 @@ func take(second_word:String) -> String:
 		if item.item_name.to_lower().similarity(second_word) > 0.4:
 			current_room.remove_item(item)
 			player.take_item(item)
-			return "You take the " + item.item_name
-	return "There is no item like that in this room."
+			return "You take the " + Colors.wrap_item_text(item.item_name)
+	
+	return "There is no " + Colors.wrap_item_text(second_word) + " here."
 
 
 func drop(second_word:String) -> String:
@@ -97,7 +100,7 @@ func use(second_word:String) -> String:
 						if exit == item.use_value:
 							exit.is_locked = false
 							player.drop_item(item)
-							return "You use %s to unlock a door to %s" % [item.item_name, exit.get_other_room(current_room).room_name]
+							return "You use %s to unlock a door to %s." % [Colors.wrap_item_text(item.item_name), Colors.wrap_location_text(exit.get_other_room(current_room).room_name)]
 					return "That item does not unlock any doors in this room."
 				_:
 					return "Error - tried to use an item with an invalid type."
@@ -108,10 +111,11 @@ func use(second_word:String) -> String:
 func talk(second_word:String) -> String:
 	if second_word == "":
 		return "Talk to who?"
+		
 	for npc in current_room.npcs:
 		if npc.npc_name.to_lower().similarity(second_word) > 0.4:
 			var dialog = npc.post_quest_dialog if npc.has_received_quest_item else npc.initial_dialog
-			return '%s: "%s"' % [npc.npc_name, dialog]
+			return '%s: %s' % [Colors.wrap_npc_text(npc.npc_name), Colors.wrap_speech_text('"%s"' % dialog)]
 	
 	return "That person does not exist in this room."
 
@@ -146,8 +150,16 @@ func give(second_word:String) -> String:
 
 
 func help() -> String:
-	return "You can use these commands: go [location], take/drop [item], talk [npc] - give [item], inventory, help"
-
+	return "\n".join( PackedStringArray([
+		"You can use these commands: ",
+		" go " + Colors.wrap_location_text("[location]"),
+		" take/drop " + Colors.wrap_item_text("[item]"),
+		" use " + Colors.wrap_item_text("[item]"),
+		" talk " + Colors.wrap_npc_text("[npc]"),
+		" give " + Colors.wrap_item_text("[item]"),
+		" inventory",
+		" help"
+	]) )
 
 ###
 func change_room(new_room:Room) -> String:
