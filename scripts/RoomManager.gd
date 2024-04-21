@@ -29,7 +29,7 @@ func _ready() -> void:
 	
 
 func load_item(item_name:String):
-	return load("res://items/%s.tres" % item_name)
+	return load("res://object/items/%s.tres" % item_name)
 
 func load_npc(npc_name:String):
-	return load("res://npcs/%s.tres" % npc_name)
+	return load("res://object/npcs/%s.tres" % npc_name)

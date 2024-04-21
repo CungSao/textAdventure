@@ -1,12 +1,13 @@
-[gd_scene load_steps=13 format=3 uid="uid://d3wba6syqkbrp"]
+[gd_scene load_steps=14 format=3 uid="uid://d3wba6syqkbrp"]
 
-[ext_resource type="Script" path="res://input/Input.gd" id="1_2uw3k"]
-[ext_resource type="FontFile" uid="uid://d078jfhcy6kqy" path="res://fonts/IBMPlexMono-Regular.ttf" id="1_scu14"]
-[ext_resource type="Script" path="res://game.gd" id="2_vas34"]
-[ext_resource type="Script" path="res://CommandProcessor.gd" id="3_ulhwv"]
-[ext_resource type="Script" path="res://RoomManager.gd" id="4_l4nh5"]
-[ext_resource type="PackedScene" uid="uid://c0bvgbk12s7cn" path="res://rooms/room.tscn" id="4_m1qwo"]
-[ext_resource type="PackedScene" uid="uid://cyqy2dka07t03" path="res://game_info.tscn" id="6_lhram"]
+[ext_resource type="FontFile" uid="uid://d078jfhcy6kqy" path="res://asset/IBMPlexMono-Regular.ttf" id="1_scu14"]
+[ext_resource type="Script" path="res://scripts/game.gd" id="2_vas34"]
+[ext_resource type="Script" path="res://scripts/CommandProcessor.gd" id="3_ulhwv"]
+[ext_resource type="Script" path="res://scripts/RoomManager.gd" id="4_l4nh5"]
+[ext_resource type="PackedScene" uid="uid://c0bvgbk12s7cn" path="res://object/rooms/room.tscn" id="5_0kd6g"]
+[ext_resource type="PackedScene" uid="uid://cyqy2dka07t03" path="res://scripts/game_info.tscn" id="6_0kac6"]
+[ext_resource type="Script" path="res://object/input/Input.gd" id="7_tn5pl"]
+[ext_resource type="PackedScene" uid="uid://ct4gxorpfvgdr" path="res://scripts/side_panel.tscn" id="8_8e1is"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hdhih"]
 
@@ -34,7 +35,8 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_f8l51")
 script = ExtResource("2_vas34")
-input_path = NodePath("Background/MarginContainer/BoxContainer/InputArea/HBoxContainer/Input")
+input_path = NodePath("Background/MarginContainer/Columns/Rows/InputArea/HBoxContainer/Input")
+info_path = NodePath("Background/MarginContainer/Columns/Rows/GameInfo")
 
 [node name="CommandProcessor" type="Node" parent="."]
 script = ExtResource("3_ulhwv")
@@ -42,7 +44,7 @@ script = ExtResource("3_ulhwv")
 [node name="RoomManager" type="Node" parent="."]
 script = ExtResource("4_l4nh5")
 
-[node name="HouseRoom" parent="RoomManager" instance=ExtResource("4_m1qwo")]
+[node name="HouseRoom" parent="RoomManager" instance=ExtResource("5_0kd6g")]
 offset_left = 1.0
 offset_top = -189.0
 offset_right = 251.0
@@ -50,7 +52,7 @@ offset_bottom = -39.0
 room_name = "A house"
 room_description = "A random house"
 
-[node name="OutsideRoom" parent="RoomManager" instance=ExtResource("4_m1qwo")]
+[node name="OutsideRoom" parent="RoomManager" instance=ExtResource("5_0kd6g")]
 offset_left = 285.0
 offset_top = -189.0
 offset_right = 535.0
@@ -58,7 +60,7 @@ offset_bottom = -39.0
 room_name = "outside"
 room_description = "outside in the village."
 
-[node name="ShedRoom" parent="RoomManager" instance=ExtResource("4_m1qwo")]
+[node name="ShedRoom" parent="RoomManager" instance=ExtResource("5_0kd6g")]
 offset_left = 567.0
 offset_top = -190.0
 offset_right = 817.0
@@ -66,7 +68,7 @@ offset_bottom = -40.0
 room_name = "a shed"
 room_description = "a dusty old shed used for storage."
 
-[node name="Gate" parent="RoomManager" instance=ExtResource("4_m1qwo")]
+[node name="Gate" parent="RoomManager" instance=ExtResource("5_0kd6g")]
 offset_left = 286.0
 offset_top = -359.0
 offset_right = 536.0
@@ -74,7 +76,7 @@ offset_bottom = -209.0
 room_name = "the town gate"
 room_description = "It leads out to the forest to the north."
 
-[node name="Field" parent="RoomManager" instance=ExtResource("4_m1qwo")]
+[node name="Field" parent="RoomManager" instance=ExtResource("5_0kd6g")]
 offset_left = 285.0
 offset_top = -529.0
 offset_right = 535.0
@@ -97,30 +99,38 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="BoxContainer" type="VBoxContainer" parent="Background/MarginContainer"]
+[node name="Columns" type="HBoxContainer" parent="Background/MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Rows" type="VBoxContainer" parent="Background/MarginContainer/Columns"]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_constants/separation = 20
 
-[node name="GameInfo" parent="Background/MarginContainer/BoxContainer" instance=ExtResource("6_lhram")]
+[node name="GameInfo" parent="Background/MarginContainer/Columns/Rows" instance=ExtResource("6_0kac6")]
 layout_mode = 2
 
-[node name="InputArea" type="PanelContainer" parent="Background/MarginContainer/BoxContainer"]
+[node name="InputArea" type="PanelContainer" parent="Background/MarginContainer/Columns/Rows"]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ghkb4")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Background/MarginContainer/BoxContainer/InputArea"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Background/MarginContainer/Columns/Rows/InputArea"]
 layout_mode = 2
 
-[node name="Caret" type="Label" parent="Background/MarginContainer/BoxContainer/InputArea/HBoxContainer"]
+[node name="Caret" type="Label" parent="Background/MarginContainer/Columns/Rows/InputArea/HBoxContainer"]
 layout_mode = 2
 text = " > "
 
-[node name="Input" type="LineEdit" parent="Background/MarginContainer/BoxContainer/InputArea/HBoxContainer"]
+[node name="Input" type="LineEdit" parent="Background/MarginContainer/Columns/Rows/InputArea/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 max_length = 48
-script = ExtResource("1_2uw3k")
+script = ExtResource("7_tn5pl")
 
-[connection signal="text_submitted" from="Background/MarginContainer/BoxContainer/InputArea/HBoxContainer/Input" to="." method="_on_input_text_submitted"]
-[connection signal="text_submitted" from="Background/MarginContainer/BoxContainer/InputArea/HBoxContainer/Input" to="Background/MarginContainer/BoxContainer/InputArea/HBoxContainer/Input" method="_on_text_submitted"]
+[node name="SidePanel" parent="Background/MarginContainer/Columns" instance=ExtResource("8_8e1is")]
+layout_mode = 2
+
+[connection signal="text_submitted" from="Background/MarginContainer/Columns/Rows/InputArea/HBoxContainer/Input" to="." method="_on_input_text_submitted"]
+[connection signal="text_submitted" from="Background/MarginContainer/Columns/Rows/InputArea/HBoxContainer/Input" to="Background/MarginContainer/Columns/Rows/InputArea/HBoxContainer/Input" method="_on_text_submitted"]

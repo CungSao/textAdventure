@@ -1,6 +1,6 @@
 extends PanelContainer
 
-const INPUT_RESPONSE = preload("res://input/input_response.tscn")
+const INPUT_RESPONSE = preload("res://object/input/input_response.tscn")
 
 @export var max_lines_remembered = 30
 var should_zebra = false

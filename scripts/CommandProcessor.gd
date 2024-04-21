@@ -1,5 +1,7 @@
 extends Node
 
+signal room_changed(new_room)
+signal room_updated(current_room)
 
 var current_room:Room = null
 var player:Player = null
@@ -67,6 +69,7 @@ func take(second_word:String) -> String:
 		if item.item_name.to_lower().similarity(second_word) > 0.4:
 			current_room.remove_item(item)
 			player.take_item(item)
+			room_updated.emit(current_room)
 			return "You take the " + Colors.wrap_item_text(item.item_name)
 	
 	return "There is no " + Colors.wrap_item_text(second_word) + " here."
@@ -80,7 +83,8 @@ func drop(second_word:String) -> String:
 		if second_word.to_lower() == item.item_name.to_lower():
 			current_room.add_item(item)
 			player.drop_item(item)
-			return "You drop the " + item.item_name
+			room_updated.emit(current_room)
+			return "You drop the " + Colors.wrap_item_text(item.item_name)
 	return "There don't have that item."
 
 
@@ -164,4 +168,5 @@ func help() -> String:
 ###
 func change_room(new_room:Room) -> String:
 	current_room = new_room
+	room_changed.emit(new_room)
 	return new_room.get_full_description()

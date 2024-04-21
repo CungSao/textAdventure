@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="NPC" load_steps=3 format=3 uid="uid://d3yhi3285ewru"]
 
-[ext_resource type="Script" path="res://npcs/NPC.gd" id="1_4sphx"]
-[ext_resource type="Resource" uid="uid://du55n5xhob2cp" path="res://items/GuardSword.tres" id="1_gdo0m"]
+[ext_resource type="Script" path="res://object/npcs/NPC.gd" id="1_4sphx"]
+[ext_resource type="Resource" uid="uid://du55n5xhob2cp" path="res://object/items/GuardSword.tres" id="1_gdo0m"]
 
 [resource]
 script = ExtResource("1_4sphx")
